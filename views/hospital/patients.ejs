@@ -1,0 +1,84 @@
+
+<%-include('../layout/header.ejs')%>
+</head>
+</body>
+<%-include('../layout/hospital-nav.ejs')%>
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-4 col-3">
+        <h4 class="page-title">Patients</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table
+            class="table table-border table-striped custom-table mb-0"
+          >
+          <%if(succ){%>
+          <div class="status-green p-3"><%=succ%></div>
+          <%}if(err){%>
+
+          <div class="status-red p-3"><%=err%></div>
+          <%}%>
+          
+            <thead>
+              <tr>
+                <th> Appointment Id</th>
+                <th>Name</th>
+                <th>time</th>
+                <th>Email</th>
+                <th> Status </th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%for(let i =0; i<patients.length; i++){%>
+              <tr>
+                <td><%=patients[i]['appointmentId']["appointmentId"]%> </td>
+                <td>
+                  <%=patients[i]['userId']['firstName']+" " +patients[i]['userId']['lastName']%>
+                </td>
+                <td>
+                  <div><%=patients[i]['appointmentId']['date']%></div>
+                  <div><%=patients[i]['appointmentId']["startTime"] +"-"+patients[i]['appointmentId']['endTime']%></div>
+                
+                </td>
+                <td><%=patients[i]['userId']['email']%></td>
+                <td><%=patients[i]['status'] %></td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a
+                      href="#"
+                      class="action-icon dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                      ><i class="fa fa-ellipsis-v"></i
+                    ></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <form method="POST" action="/hospital/patients/allow">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" value="<%=patients[i]['userId']['_id'] %>" name="userId" />
+                        <input type="hidden" value="<%=patients[i]['_id']%>" name="appointmentId">
+                        <button class="dropdown-item" type="submit"> Allow</button>
+                      </form>
+                      <form action="/hospital/patients/deny" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" value="<%=patients[i]['userId']['_id'] %>" name="userId" />
+                        <input type="hidden" value="<%=patients[i]['_id']%>" name="appointmentId">
+                        <button class="dropdown-item" type="submit"> deny</button>
+                      </form>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <%}%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%-include('../layout/tail.ejs')%>

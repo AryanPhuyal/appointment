@@ -1,0 +1,87 @@
+<%-include('../layout/header.ejs')%>
+</head>
+</body>
+<%-include('../layout/hospital-nav.ejs')%>
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-sm-4 col-3">
+        <h4 class="page-title">Appointments</h4>
+        <%if(error!=""){%>
+          <p class="text-danger bg-danger"><%=error%> </p>
+          <%}%>
+      </div>
+      <div class="col-sm-8 col-9 text-right m-b-20">
+        <a
+          href="/hospital/add-appointment"
+          class="btn btn btn-primary btn-rounded float-right"
+          ><i class="fa fa-plus"></i> Add Appointment</a
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <%if(appointments && appointments.length>0){%>
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>Doctor Name</th>
+                <th>Department</th>
+                <th>Appointment Date</th>
+                <th>Appointment Time</th>
+                <th>Status</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%for(i in appointments){%>
+              <tr>
+                <td><%=appointments[i].appointmentId%></td>
+                <td>
+                  <img
+                    width="28"
+                    height="28"
+                    src="/img/user.jpg"
+                    class="rounded-circle m-r-5"
+                    alt=""
+                  /><%=appointments[i].doctor.firstName +" "+appointments[i].doctor.lastName %>
+                </td>
+                <td><%=appointments[i].department.name%></td>
+                <td><%=appointments[i].date%></td>
+                <td><%=appointments[i].startTime%> - <%=appointments[i].endTime%></td>
+                <td><a href="/hospital/change-status/<%=appointments[i]._id  %>"><span class="custom-badge <%=appointments[i].status?"status-green":"status-red"%>"><%=appointments[i].status?"Active":"Inactive"%></span></td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a
+                      href="#"
+                      class="action-icon dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                      ><i class="fa fa-ellipsis-v"></i
+                    ></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                       <a
+                        class="dropdown-item"
+                        href="/hospital/delete-appointment/<%=appointments[i]._id%>"
+                        data-toggle="modal"
+                        ><i class="fa fa-trash-o m-r-5"></i> Delete
+                        </a
+                      >
+                    </div>
+                  </div>
+                </td>
+              <%}%>
+            </tbody>
+          </table>
+          <%}else{%>
+            <div>
+              No Appointment
+        </div>
+        <%}%>
+      </div>
+    </div>
+  </div>
+</div>  
+<%-include('../layout/tail.ejs')%>

@@ -1,0 +1,49 @@
+<%-include ('../layout/header.ejs')%>
+</head>
+<body>
+  <div class="main-wrapper account-wrapper">
+    <div class="account-page">
+      <div class="account-center">
+        <div class="account-box">
+          <form action="/auth/login" method="POST" class="form-signin">
+            <p class="text-danger"> <% if (error) {%>
+              <%=error%>
+              <%}%>
+                            </p>
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="account-logo">
+              <a href="index-2.html"
+                ><img src="assets/img/logo-dark.png" alt=""
+              /></a>
+            </div>
+            <div class="form-group">
+              <label>Username or Email</label>
+              <input
+                type="text"
+                autofocus=""
+                name="userName"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password" />
+            </div>
+            <div class="form-group text-right">
+              <a href="/auth/forgot-password">Forgot your password?</a>
+            </div>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary account-btn">
+                Login
+              </button>
+            </div>
+            <div class="text-center register-link">
+              Don’t have an account? <a href="/auth/signup">Register Now</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%-include ('../layout/tail.ejs')%>

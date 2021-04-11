@@ -1,0 +1,60 @@
+
+<%-include('../layout/header.ejs')%>
+</head>
+<body>
+    <%-include('../layout/hospital-nav.ejs')%>
+<div class="page-wrapper">
+    <%if(error){%>
+        <div class="row status-red p-4">
+            <%=error %>
+        </div>
+        <%}%>
+        <%if(success){%>
+        <div class="row status-green p-4">
+            <%=success %>
+        </div>
+        <%}%>
+    <br/>
+                    <div class="row">
+                        <div class="col-sm-4 col-3">
+                            <h4 class="page-title">Doctors</h4>
+                        </div>
+                        <div class="col-sm-8 col-9 text-right m-b-20">
+                            <a href="/hospital/add-doctor" class="btn btn-primary btn-rounded float-right"><i
+                                    class="fa fa-plus"></i> Add Doctor</a>
+                        </div>
+                    </div>
+                    <div class="row doctor-grid">
+                        <%if(doctors.length>0){%>
+                            <%for(let i=0;i<doctors.length;i++){%>
+
+                        <div class="col-md-4 col-sm-4  col-lg-3">
+                            <div class="profile-widget">
+                                <div class="doctor-img">
+                                    <a class="avatar" href="#"><img alt=""
+                                            src="<%=doctors[i].photoUrl %>"></a>
+                                </div>
+                                <div class="dropdown profile-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/hospital/edit-doctor/<%=doctors[i]._id%>"><i
+                                                class="fa fa-pencil m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item" href="/hospital/delete-doctor/<%=doctors[i]._id%>" data-toggle="modal"
+                                            ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                    </div>
+                                </div>
+                                <h4 class="doctor-name text-ellipsis"><a href="#"><%=doctors[i].firstName +" "+ doctors[i].lastName%></a></h4>
+                                <div class="doc-prof"><%=doctors[i].department.name%></div>
+                                <div class="user-country">
+                                    <i class="fa fa-map-marker"></i> <%=doctors[i].city%>
+                                </div>
+                            </div>
+                        </div>
+                        <%}%>
+                        <%}%>
+                </div>
+        </div>
+    </div>
+        
+        <%-include('../layout/tail.ejs')%>

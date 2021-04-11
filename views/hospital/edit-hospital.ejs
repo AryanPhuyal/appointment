@@ -1,0 +1,79 @@
+<%-include('../layout/header.ejs')%>
+</head>
+
+<body>
+
+    <%-include('../layout/hospital-nav.ejs')%>
+
+
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <h4 class="page-title"><%=editing?"Edit Hospital":"Add Hospital"%></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <form method="POST" action="<%editing?'/hospital/hospital':"/add-hospital"%>" enctype="multipart/form-data">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <% if(editing){ %>
+                        <input type="hidden" name='id' value="<%=hospital._id%>">
+
+                        <%}%>
+                    <div class="col-12 m-auto">
+                        <%if(error) {%>
+                        <div class="div" style="color: rgba(250, 7, 7, 0.5);">
+                            <p class="text-red">
+                                <%=error%>
+                            </p>
+                        </div>
+                        <%}%>
+                    </div>
+                    <div class="form-group">
+                        <label>Hospital Name</label>
+                        <input class="form-control" name="hospitalName" value="<%=editing?hospital.hospitalName:""%>"
+                        type="text">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input class="form-control" name="location" value="<%=editing?hospital.location:""%>" type="text">
+                </div>
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input class="form-control" name="userName" value="<%=editing?hospital.userName:""%>" <%=editing?'disabled':''%> type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea cols="30" rows="4" name="description"
+                        class="form-control"><%=editing?hospital.description:""%></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input cols="30" rows="4" name="phone" class="form-control"
+                        value="<%=editing?hospital.phone:""%>" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <div class="profile-upload">
+                        <div class="upload-img">
+                            <img alt="" src="/img/user.jpg">
+                        </div>
+                        <div class="upload-input">
+                            <input name="profile" type="file" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="m-t-20 text-center">
+                    <button class="btn btn-primary submit-btn"> <%=editing?"Edit Hospital":"Add Hospital"%> </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <%-include('../layout/tail.ejs')%>

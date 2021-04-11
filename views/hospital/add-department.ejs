@@ -1,0 +1,66 @@
+<%-include('../layout/header.ejs')%>
+</head>
+</body>
+<%-include('../layout/hospital-nav.ejs')%>
+<div class="page-wraper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <h4 class="page-title">Add Department</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <form action="/hospital/add-department" method="post">
+          <p class="status-red"><% if (error) {%> <%=error%> <%}%></p>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <%if(editing){%>
+          <input type="hidden" name="id" value="<%=department.id%>" />
+          <%}%>
+          <div class="form-group">
+            <label>Department Name</label>
+            <input class="form-control" type="text" name="departmentName" />
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea cols="30" rows="4" class="form-control" name="departmentDescription"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="display-block">Department Status</label>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="status"
+                id="product_active"
+                value="true"
+                checked=""
+              />
+              <label class="form-check-label" for="product_active">
+                Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="status"
+                id="product_inactive"
+                value="false"
+              />
+              <label class="form-check-label" for="product_inactive">
+                Inactive
+              </label>
+            </div>
+          </div>
+          <div class="m-t-20 text-center">
+            <button class="btn btn-primary submit-btn">
+              Create Department
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%-include('../layout/tail.ejs')%>

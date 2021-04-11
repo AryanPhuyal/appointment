@@ -1,0 +1,68 @@
+<%-include('../layout/header.ejs')%>
+</head>
+</body>
+    <%-include('../layout/admin-nav.ejs')%>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-3">
+                <h4 class="page-title">Users</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-border table-striped custom-table mb-0">
+                        <%if(succ){%>
+                        <div class="status-green p-3"><%=succ%></div>
+                        <%}if(err){%>
+
+                        <div class="status-red p-3"><%=err%></div>
+                        <%}%>
+          
+            <thead>
+              <tr>
+                <th>User Id</th>
+                <th>First Name</th>
+                <th> Last Name</th>
+                <th>Email</th>
+                <th> Photo </th>
+                <th> Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%for(let i =0; i<user.length; i++){%>
+                        <tr>
+                            <td><%=user[i]['_id']%> </td>
+                            <td>
+                                <%=user[i]['firstName']%>
+                            </td>
+                            <td>
+                                <%=user[i]['lastName']%></td>
+                                <td>            
+                                    <%=user[i]['email']%>
+                            </td>
+                            <td><img height="100" width="100" src="<%=user[i]['photoUrl'] %>"/></td>
+                            <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                              <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                                  class="fa fa-ellipsis-v"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="/admin/delete-user/<%=user[i]['_id']%>" data-toggle="modal"><i
+                                    class="fa fa-trash-o m-r-5"></i> Delete
+                                </a>
+                                <a class="dropdown-item" href="/admin/reset-password/<%=user[i]['_id']%>" data-toggle="modal"><i class="fas fa-key"></i> Reset password
+                                </a>
+                              </div>
+                            </div>
+                            </td>
+                        </tr>
+                        <%}%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%-include('../layout/tail.ejs')%>

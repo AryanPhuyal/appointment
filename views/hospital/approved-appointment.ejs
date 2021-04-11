@@ -1,0 +1,51 @@
+<%-include('../layout/header.ejs')%>
+</head>
+</body>
+<%-include('../layout/hospital-nav.ejs')%>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-3">
+                <h4 class="page-title">Patients</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-border table-striped custom-table mb-0">
+          
+            <thead>
+              <tr>
+                <th> Appointment Id</th>
+                <th>Name</th>
+                <th>time</th>
+                <th>Email</th>
+                <th> Status </th>
+              </tr>
+            </thead>
+            <tbody>
+              <%for(let i =0; i<patients.length; i++){%>
+                        <tr>
+                            <td><%=patients[i]['appointmentId']["appointmentId"]%> </td>
+                            <td>
+                                <%=patients[i]['userId']['firstName']+" " +patients[i]['userId']['lastName']%>
+                            </td>
+                            <td>
+                                <div><%=patients[i]['appointmentId']['date']%></div>
+                                <div>
+                                    <%=patients[i]['appointmentId']["startTime"] +"-"+patients[i]['appointmentId']['endTime']%>
+                                </div>
+
+                            </td>
+                            <td><%=patients[i]['userId']['email']%></td>
+                            <td><%=patients[i]['status'] %></td>
+                        </tr>
+                        <%}%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%-include('../layout/tail.ejs')%>
